@@ -18,7 +18,7 @@ This app additionally uses a popular food/ingredient nutrition and information a
     - # cd FoodNStuff
 - The project contains a dockerfile, so build the docker image for the application
     - # docker build -t foodapp
-    
+
 
 
 **GETTING STARTED**
@@ -27,5 +27,5 @@ This app additionally uses a popular food/ingredient nutrition and information a
 
 **LICENSE**
 
-
+This project is licensed under the MIT License, see the LICENSE file for more details.
 
