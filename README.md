@@ -21,11 +21,12 @@ This app additionally uses a popular food/ingredient nutrition and information a
 
 
 
+
 **GETTING STARTED**
+
 
 
 
 **LICENSE**
 
 This project is licensed under the MIT License, see the LICENSE file for more details.
-
