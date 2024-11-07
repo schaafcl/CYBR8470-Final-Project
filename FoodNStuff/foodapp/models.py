@@ -29,6 +29,7 @@ class Recipe(models.Model):
     prep_time = models.PositiveIntegerField(null=True)
     # cook time in minutes, allow nulls
     cook_time = models.PositiveIntegerField(null=True)
+    # might not need this??? ingredients that are a part of a recipe will have this recipe as their foreign key
     ingredients = models.ManyToManyField(Ingredient)
     protein = models.ForeignKey('Protein', on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
@@ -55,3 +56,7 @@ class Category(models.Model):
         return self.name
     
 # NOTE:  maybe add a model for Nutritional information that can be populated by calling the EDAMAM API and then stored
+
+# NOTE:  maybe add a favorites model that allows a logged in user to browse the entire db of recipes and add select ones to their favorites list for quicker browsing through their favorite recipes
+
+# NOTE:  might not want to have protein and category as their own models, instead have them be a pre-made list of options.  I want to prevent users from adding protein types or categories all "willy-nilly"
