@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework',
     'foodapp',
 ]
 
@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'FoodNStuff.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dogapp_db',
+        'NAME': 'recipe_db',
         'USER': 'cschaaf',
         'PASSWORD': 'password',
         'HOST': 'db',

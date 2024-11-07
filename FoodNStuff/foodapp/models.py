@@ -30,7 +30,7 @@ class Recipe(models.Model):
     # cook time in minutes, allow nulls
     cook_time = models.PositiveIntegerField(null=True)
     # might not need this??? ingredients that are a part of a recipe will have this recipe as their foreign key
-    ingredients = models.ManyToManyField(Ingredient)
+    #ingredients = models.ManyToManyField(Ingredient)
     protein = models.ForeignKey('Protein', on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to='recipes/', blank=True, null=True)
