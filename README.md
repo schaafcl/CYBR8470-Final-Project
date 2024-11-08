@@ -42,16 +42,16 @@ This section is currently a bit barren as the project (as of milestone 1) doesn'
 
 General Application function will be easy to understand, and will vary depending on what task you wish to complete.
 
-<u>To enter new content (a new or existing recipe)<u>
+**To enter new content (a new or existing recipe)**
 - Navigate to the appropriate page and enter the recipe details in the appropriate entry boxes and menus
 - Some selections will be text entry, others will have dropdown boxes for curated selections
 
-<u>To search for a recipe by some specific criteria<u>
+**To search for a recipe by some specific criteria**
 - Navigate to the search or browse page
 - Choose what criteria you wish to filter recipes by, click "search"
 - View the results and decide if you wish to further filter the results
 
-<u>To remove or edit existing recipes<u>
+**To remove or edit existing recipes**
 - Locate the recipe you wish to modify or remove using the above process for searching
 - Click the appropriate button on that recipe for what you wish to do, either "Modify Recipe" or "Remove Recipe"
 - Clicking modify, will take you to a page similar to entering a new recipe with fields populated with the existing recipe details
