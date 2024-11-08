@@ -61,7 +61,7 @@ General Application function will be easy to understand, and will vary depending
 
 Front end display and presentation is still under works, but viewing a recipe will roughly look like the following:
 
-![Recipe View Mockup](Documentation\mockup.png)
+![Recipe View Mockup](https://github.com/schaafcl/CYBR8470-Final-Project/blob/dc2c60fce0af084826e1307dca0df8e8765e538b/Documentation/mockup.png)
 
 
 # **LICENSE**
