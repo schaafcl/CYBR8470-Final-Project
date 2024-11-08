@@ -36,6 +36,17 @@ To start the App after it is downloaded and installed, enter via terminal:
 To stop the App, enter via terminal on the host machine:    
     - docker-compose down
 
+To add an administrator for the application, from a terminal on hosting machine while the docker container for the app is currently running:
+    - docker-compose exec web python manage.py createsuperuser
+
+        - when prompted enter username, email address and password for the administrator
+            - as a base protection, common or weak passwords will receive a warning when creating this superuser to avoid brute force or common dictionary attacks on the admninistrator dashboard, (you should always try to use best password practices, especially when dealing with administrator accounts).
+
+    - you can then navigate, while on the hosting machine, to:  localhost:8000/admin
+        - You will be pompted to enter the credentials you used to create the admin user
+        - This will bring you to the administrator dashboard for the django application
+
+
 
 This section is currently a bit barren as the project (as of milestone 1) doesn't have a determined front end framework decided or in place.
 
@@ -82,6 +93,10 @@ This project is licensed under the MIT License, see the LICENSE file for more de
 - As a **USER**, I want to be able to retrieve public API information about a particular recipe and its ingredients, so that I can see nutritional and other related information about recipes and ingredients.
     - Given that I allow the app to make external API requests outside my internal network.
 
+- As an **ADMINISTRATOR**, I want to be able to create an administrator superuser account, so that I can manage various aspects of the application via the djano administrator dashboard.
+    - Given that I follow the steps in "Getting Started" to create a superuser 
+
+
 # **MISUSE SCENARIOS**
 The current plans for this application don't involve exposing the application outside of the internal network.  Given that fact, mis-use stories revolve around malicious insider misuse, or accidental misuse
 
@@ -93,3 +108,9 @@ The current plans for this application don't involve exposing the application ou
 
 - As a **MIS-USER**, I accidentally clicked "remove recipe", while trying to modify an existing recipe.
     - Mitigated through a confirmation prompt asking user if they're sure they want to remove an entry.
+
+- As a **MIS-USER**, I want to log into the administrator dashboard, so I can gain control of the server for various malicious purposes.
+    - Mitigated through built-in authentication requirements to access the django administrator dashboard through creating a superuser when launching the app
+
+- As a **MIS-USER**, I want to brute force attack the administrator dashboard login, so that I can gain control of the application server.
+    - Mitigated through, at a minimum, basic password strength recommendations built into the manage.py createsuperuser function
