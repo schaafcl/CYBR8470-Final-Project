@@ -61,7 +61,7 @@ General Application function will be easy to understand, and will vary depending
 
 Front end display and presentation is still under works, but viewing a recipe will roughly look like the following:
 
-![image](Documentation\Recipe View Mockup.drawio.png)
+![Recipe View Mockup](Documentation\mockup.png)
 
 
 # **LICENSE**
