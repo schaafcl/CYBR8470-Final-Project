@@ -61,7 +61,7 @@ __To remove or edit existing recipes__
 
 Front end display and presentation is still under works, but viewing a recipe will roughly look like the following:
 
-![image](../Documentation/Recipe View Mockup.drawio.png)
+![image](Documentation\Recipe View Mockup.drawio.png)
 
 
 # **LICENSE**
