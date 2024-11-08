@@ -31,10 +31,10 @@ This app additionally uses a popular food/ingredient nutrition and information a
 Starting the app is done via docker commands in a terminal on the machine you wish to host the app
 
 To start the App after it is downloaded and installed, enter via terminal:    
-    docker-compose up
+    - docker-compose up
 
 To stop the App, enter via terminal on the host machine:
-    docker-compose down
+    - docker-compose down
 
 
 This section is currently a bit barren as the project (as of milestone 1) doesn't have a determined front end framework decided or in place.
