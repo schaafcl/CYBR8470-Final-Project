@@ -33,7 +33,7 @@ Starting the app is done via docker commands in a terminal on the machine you wi
 To start the App after it is downloaded and installed, enter via terminal:    
     - docker-compose up
 
-To stop the App, enter via terminal on the host machine:
+To stop the App, enter via terminal on the host machine:    
     - docker-compose down
 
 
