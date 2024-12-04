@@ -12,7 +12,7 @@ class Ingredient(models.Model):
     quantity = models.DecimalField(max_digits=8, decimal_places=2)
     measurement_unit = models.CharField(max_length=50)
     # CASCADE --> deletes references to an instance when it is removed
-    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, related_name='ingredients')
+    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, related_name='ingredients_list')
     
 
     def __str__(self):
@@ -22,6 +22,7 @@ class Ingredient(models.Model):
 # Recipe Model
 class Recipe(models.Model):
     # attributes of the model go here
+    ingredients = models.ManyToManyField(Ingredient, blank=True, related_name='recipes', null=True)
     name = models.CharField(max_length=100)
     description = models.TextField()
     servings = models.PositiveIntegerField()
@@ -31,8 +32,11 @@ class Recipe(models.Model):
     cook_time = models.PositiveIntegerField(null=True)
     # might not need this??? ingredients that are a part of a recipe will have this recipe as their foreign key
     #ingredients = models.ManyToManyField(Ingredient)
-    protein = models.ForeignKey('Protein', on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
+    # NOTE:  this is for the curated list of proteins need to make this yet, for now make it a string
+    #protein = models.ForeignKey('Protein', on_delete=models.SET_NULL, null=True)
+    #category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
+    protein = models.CharField(max_length=100)
+    category = models.CharField(max_length=100)
     image = models.ImageField(upload_to='recipes/', blank=True, null=True)
 
     def __str__(self):

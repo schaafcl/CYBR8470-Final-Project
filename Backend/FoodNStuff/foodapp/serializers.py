@@ -14,7 +14,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipe
         # model attributes go in fields in 'single quotes'
-        fields = ['id', 'name', 'description', 'servings', 'prep_time', 'cook_time', 'protein', 'category', 'image']
+        fields = ['id', 'name', 'description', 'servings', 'prep_time', 'cook_time', 'protein', 'category', 'image', 'ingredients']
 
 
 # NOTE:  may need to add serializers for protein and category if I keep those as models

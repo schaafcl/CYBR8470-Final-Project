@@ -1,28 +1,31 @@
-
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import './App.css';
-import LandingPage from './components/Homepage';
-import RecipeView from './components/RecipeView';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
-  return (
-    <Router>
-      <div className="App">
-        <header className="App-header">
-          <nav>
-            <Link to="/" className="nav-link">Home</Link>
-            <Link to="/recipe/1" className="nav-link">Recipe 1</Link>
-            <Link to="/recipe/2" className="nav-link">Recipe 2</Link>
-          </nav>
-        </header>
+  const [ingredient, setIngredients] = useState([]);
 
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/recipe/:id" element={<RecipeView />} />
-        </Routes>
-      </div>
-    </Router>
+  useEffect(() => {
+    // Make an API call to the Django backend
+    axios.get('http://localhost:8000/ingredients/')
+      .then(response => {
+        setIngredients(response.data); // Store the response data in state
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+      });
+  }, []); // Empty dependency array means this runs once when the component mounts
+
+  return (
+    <div className="App">
+      <h1>Books</h1>
+      <ul>
+        {ingredient.map(book => (
+          <li key={book.id}>
+            {ingredient.name} Description:  {ingredient.description}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
