@@ -1,32 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function App() {
-  const [recipe, setRecipes] = useState([]);
+const RecipeList = () => {
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Make an API call to the Django backend
-    axios.get('http://localhost:8000/api/recipes/7')
+    // Fetch data from Django API using axios
+    axios.get('http://localhost:8000/api/recipes/')
       .then(response => {
-        setRecipes(response.data); // Store the response data in state
+        setRecipes(response.data);
+        setLoading(false);
       })
       .catch(error => {
-        console.error('There was an error!', error);
+        console.error('Error fetching data: ', error);
+        setLoading(false);
       });
-  }, []); // Empty dependency array means this runs once when the component mounts
+  }, []); // Empty dependency array means it runs once when the component mounts
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="App">
+    <div>
       <h1>Recipes</h1>
       <ul>
-        {recipe.map(recipe => (
+        {recipes.map(recipe => (
           <li key={recipe.id}>
-            {recipe.name} Description:  {recipe.description}
+            <h2>{recipe.name}</h2>
+            <p>{recipe.instructions}</p>
           </li>
         ))}
       </ul>
     </div>
   );
-}
+};
 
-export default App;
+export default RecipeList;
