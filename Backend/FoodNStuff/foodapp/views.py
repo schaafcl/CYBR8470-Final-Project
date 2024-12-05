@@ -23,3 +23,11 @@ class IngredientViewSet(viewsets.ModelViewSet):
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    def create(self, request, *args, **kwargs):
+        #handles posts to create a new recipe
+        #individual ingredietns handled in the serializer
+        return super().create(request, *args, **kwargs)

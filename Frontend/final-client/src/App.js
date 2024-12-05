@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
-  const [ingredient, setIngredients] = useState([]);
+  const [recipe, setRecipes] = useState([]);
 
   useEffect(() => {
     // Make an API call to the Django backend
-    axios.get('http://localhost:8000/ingredients/')
+    axios.get('http://localhost:8000/api/recipes/7')
       .then(response => {
-        setIngredients(response.data); // Store the response data in state
+        setRecipes(response.data); // Store the response data in state
       })
       .catch(error => {
         console.error('There was an error!', error);
@@ -17,11 +17,11 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Books</h1>
+      <h1>Recipes</h1>
       <ul>
-        {ingredient.map(book => (
-          <li key={book.id}>
-            {ingredient.name} Description:  {ingredient.description}
+        {recipe.map(recipe => (
+          <li key={recipe.id}>
+            {recipe.name} Description:  {recipe.description}
           </li>
         ))}
       </ul>

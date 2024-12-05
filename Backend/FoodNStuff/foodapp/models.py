@@ -8,11 +8,11 @@ from django.contrib.auth.models import User
 class Ingredient(models.Model):
     # attributes here
     name = models.CharField(max_length=100)
-    description = models.TextField(null=True)
-    quantity = models.DecimalField(max_digits=8, decimal_places=2)
-    measurement_unit = models.CharField(max_length=50)
+    description = models.TextField(null=True, blank=True)
+    quantity = models.DecimalField(max_digits=8, decimal_places=2, null=True, default="0")
+    measurement_unit = models.CharField(max_length=50, default="None")
     # CASCADE --> deletes references to an instance when it is removed
-    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, related_name='ingredients_list')
+    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, related_name='ingredient_list', null=True)
     
 
     def __str__(self):
@@ -22,10 +22,10 @@ class Ingredient(models.Model):
 # Recipe Model
 class Recipe(models.Model):
     # attributes of the model go here
-    ingredients = models.ManyToManyField(Ingredient, blank=True, related_name='recipes', null=True)
+    ingredients = models.ManyToManyField(Ingredient, blank=True, related_name='recipes')
     name = models.CharField(max_length=100)
-    description = models.TextField()
-    servings = models.PositiveIntegerField()
+    description = models.TextField(null=True)
+    servings = models.PositiveIntegerField(null=True)
     # prep time in minutes, allow nulls if you don't want to enter this
     prep_time = models.PositiveIntegerField(null=True)
     # cook time in minutes, allow nulls
@@ -35,8 +35,10 @@ class Recipe(models.Model):
     # NOTE:  this is for the curated list of proteins need to make this yet, for now make it a string
     #protein = models.ForeignKey('Protein', on_delete=models.SET_NULL, null=True)
     #category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
-    protein = models.CharField(max_length=100)
-    category = models.CharField(max_length=100)
+    protein = models.CharField(max_length=100, default="None")
+    category = models.CharField(max_length=100, default="None")
+    # NOTE:  add html escaping and input sanitization to textfields
+    instructions = models.TextField(null=True)
     image = models.ImageField(upload_to='recipes/', blank=True, null=True)
 
     def __str__(self):
