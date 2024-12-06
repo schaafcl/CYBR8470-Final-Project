@@ -1,40 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import AboutPage from './components/AboutPage';
+import RecipePage from './components/RecipePage';
 
-const RecipeList = () => {
-  const [recipes, setRecipes] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Fetch data from Django API using axios
-    axios.get('http://localhost:8000/api/recipes/')
-      .then(response => {
-        setRecipes(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching data: ', error);
-        setLoading(false);
-      });
-  }, []); // Empty dependency array means it runs once when the component mounts
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
+function App() {
   return (
-    <div>
-      <h1>Recipes</h1>
-      <ul>
-        {recipes.map(recipe => (
-          <li key={recipe.id}>
-            <h2>{recipe.name}</h2>
-            <p>{recipe.instructions}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+    <Router>
+      <div>
+        <h1>My Recipe App</h1>
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/recipes">Recipes</a></li>
+          </ul>
+        </nav>
 
-export default RecipeList;
+        {/* Define your routes here */}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/recipes" element={<RecipePage />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
