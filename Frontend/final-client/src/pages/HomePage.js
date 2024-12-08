@@ -21,8 +21,8 @@ const HomePage = () => {
         console.error('Response was not "ok"', raw_response)
       }
 
-      const data = await response.json();
-      setRecipes(data); // Store recipes in the state
+      // const data = await response.json();
+      // setRecipes(data); // Store recipes in the state
     } catch (error) {
       console.error('Error fetching recipes:', error);
     }
@@ -39,8 +39,8 @@ const HomePage = () => {
         <ul>
           {recipes.map((recipe) => (
             <li key={recipe.id}>
-              <Link to={`/api/recipe/${recipe.id}`}>
-                <h3>{recipe.title}</h3>
+              <Link to={`/recipes/${recipe.id}`}>
+                <h3>{recipe.name}</h3>
               </Link>
               <p>{recipe.description}</p>
             </li>
