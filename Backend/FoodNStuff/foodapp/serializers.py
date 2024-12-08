@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Recipe, Ingredient
+from rest_framework.reverse import reverse
 
 
 
@@ -10,7 +11,7 @@ class IngredientSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description', 'quantity', 'measurement_unit', 'recipe']
 
 
-class RecipeSerializer(serializers.ModelSerializer):
+class RecipeSerializer(serializers.HyperlinkedModelSerializer):
     ingredients = IngredientSerializer(many=True)
     class Meta:
         model = Recipe

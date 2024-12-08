@@ -29,6 +29,8 @@ ALLOWED_HOSTS = ['0.0.0.0',
                  'localhost']
 
 # allows front and back end running on the same device to communicate
+# NOTE: DISABLE ALLOW ALL ORIGINS AFTER DEVELOPMENT DONE
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS= [
     "http://localhost:3000",
 ]

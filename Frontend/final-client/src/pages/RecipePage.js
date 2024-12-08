@@ -1,41 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import SearchBar from '../components/RecipeSearchBar';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import RecipeDetails from '../components/RecipeDetails';
+import HomePage from './HomePage';
 
 const RecipePage = () => {
-    const [recipes, setRecipes] = useState([]);
-    const [loading, setLoading] = useState(true);
-  
-    useEffect(() => {
-      // Fetch data from Django API using axios
-      axios.get('http://localhost:8000/api/recipes/')
-        .then(response => {
-          setRecipes(response.data);
-          setLoading(false);
-        })
-        .catch(error => {
-          console.error('Error fetching data: ', error);
-          setLoading(false);
-        });
-    }, []); // Empty dependency array means it runs once when the component mounts
-  
-    if (loading) {
-      return <div>Loading...</div>;
-    }
-  
-    return (
+  return (
+    <Router>
       <div>
-        <h1>Recipes</h1>
-        <ul>
-          {recipes.map(recipe => (
-            <li key={recipe.id}>
-              <h2>{recipe.name}</h2>
-              <p>{recipe.instructions}</p>
-            </li>
-          ))}
-        </ul>
+        <h1>Recipe Search</h1>
+        <Routes>
+          <Route path="/recipe/:id" component={RecipeDetails} />
+          <Route path="/" exact component={HomePage} />
+        </Routes>
       </div>
-    );
-  };
+    </Router>
+  );
+};
+
+
   
   export default RecipePage;
