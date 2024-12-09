@@ -4,7 +4,7 @@ FROM python:3.8
 WORKDIR /FoodNStuff
 
 
-# copy requirements file into dogapp directory
+# copy requirements file into directory
 COPY requirements.txt /FoodNStuff/
 # --no-cache-dir to keep container light, no cache needed here as far as I know
 RUN pip install --no-cache-dir -r requirements.txt
