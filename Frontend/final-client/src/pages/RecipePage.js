@@ -3,7 +3,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const RecipePage = () => {
   const { id } = useParams();  // Extract the recipe id from the URL
-  const [recipe, setRecipe] = useState(null);
+  // changin useState(null) to include recipe attributes
+  const [recipe, setRecipe] = useState({
+    name: '',
+    description: '',
+    servings: '',
+    prep_time: '',
+    cook_time: '',
+    protein: '',
+    category: '',
+    instructions: '',
+    image: '',
+    ingredients: ''
+  });
   // navigate back after deletion
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);  // State to toggle between view and edit modes
@@ -18,6 +30,7 @@ const RecipePage = () => {
     instructions: '',
     ingredients: []
   });
+
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -42,7 +55,8 @@ const RecipePage = () => {
           ingredients: data.ingredients
         })
       } catch (error) {
-        console.error('Error fetching recipe:', error);
+        setError(error.message);
+        setLoading(false);
       }
     };
     
@@ -70,9 +84,7 @@ const RecipePage = () => {
         alert('An error occurred while deleting the recipe');
       }
     }
-  };
-
-  
+  };  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -125,6 +137,10 @@ const RecipePage = () => {
 
   if (!recipe) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
   }
 
   return (
@@ -273,6 +289,129 @@ const RecipePage = () => {
 
       {/* Button to delete the recipe */}
       <button onClick={handleDelete}>Delete Recipe</button>
+
+      {isEditing ? (
+        // Recipe update form
+        <form onSubmit={handleSubmit}>
+          <div>
+          <label>Name:</label>
+          <input
+            type="text"
+            name="name"
+            value={recipe.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Description:</label>
+          <textarea
+            name="description"
+            value={recipe.description}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Servings:</label>
+          <textarea
+            name="servings"
+            value={recipe.servings}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Prep Time:</label>
+          <textarea
+            name="prep_time"
+            value={recipe.prep_time}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Cook Time:</label>
+          <textarea
+            name="cook_time"
+            value={recipe.cook_time}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <div>
+          <label>Protein:</label>
+          <textarea
+            name="protein"
+            value={recipe.protein}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Category:</label>
+          <textarea
+            name="category"
+            value={recipe.category}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Instructions:</label>
+          <textarea
+            name="instructions"
+            value={recipe.instructions}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        { /* placeholder for updating images, need to fix this */}
+        <div>
+          <label>Image:</label>
+          <textarea
+            name="image"
+            value={recipe.image}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Ingredients (comma-separated):</label>
+          <input
+            type="text"
+            name="ingredients"
+            value={recipe.ingredients}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button type="submit">Update Recipe</button>
+        </form>
+      ) : (
+        // Recipe details view
+        <div>
+          <h2>{recipe.name}</h2>
+          <p><strong>Description:</strong> {recipe.description}</p>
+          <p><strong>Servings:</strong> {recipe.servings}</p>
+          <p><strong>Prep Time:</strong> {recipe.prep_time}</p>
+          <p><strong>Cook Time:</strong> {recipe.cook_time}</p>
+          <p><strong>Protein:</strong> {recipe.protein}</p>
+          <p><strong>Category:</strong> {recipe.category}</p>
+          <p><strong>Instructions:</strong> {recipe.instructions}</p>
+          <p><strong>Image:</strong> {recipe.image}</p>
+          <p><strong>Ingredients:</strong> {recipe.ingredients}</p>
+        </div>
+      )}
     </div>
   );
 };
