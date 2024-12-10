@@ -5,6 +5,8 @@ from django.shortcuts import render
 from .models import Ingredient, Recipe
 from .serializers import IngredientSerializer, RecipeSerializer
 from rest_framework import status, permissions, renderers, viewsets, filters
+from rest_framework.response import Response
+from rest_framework.decorators import action
 #from rest_framework.decorators import api_view, permission_classes, renderer_classes
 #from django.contrib.auth import authenticate
 #from spyne import Application, rpc, ServiceBase, Integer, Unicode
@@ -47,3 +49,13 @@ class RecipeViewSet(viewsets.ModelViewSet):
             # test print
             print(queryset)
         return queryset
+    
+    # used to update recipe values, can change to put if need be
+    @action(detail=True, methods=['patch'])
+    def update_recipe(self, request, pk=None):
+        recipe = self.get_object()
+        serializer = RecipeSerializer(recipe, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
