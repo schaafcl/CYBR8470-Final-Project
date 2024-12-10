@@ -3,7 +3,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const RecipePage = () => {
   const { id } = useParams();  // Extract the recipe id from the URL
-  const [recipe, setRecipe] = useState(null);
+  // changin useState(null) to include recipe attributes
+  const [recipe, setRecipe] = useState({
+    name: '',
+    description: '',
+    servings: '',
+    prep_time: '',
+    cook_time: '',
+    protein: '',
+    category: '',
+    instructions: '',
+    image: '',
+    ingredients: ''
+  });
   // navigate back after deletion
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);  // State to toggle between view and edit modes
@@ -42,7 +54,8 @@ const RecipePage = () => {
           ingredients: data.ingredients
         })
       } catch (error) {
-        console.error('Error fetching recipe:', error);
+        setError(error.message);
+        setLoading(false);
       }
     };
     
@@ -70,9 +83,7 @@ const RecipePage = () => {
         alert('An error occurred while deleting the recipe');
       }
     }
-  };
-
-  
+  };  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -125,6 +136,10 @@ const RecipePage = () => {
 
   if (!recipe) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
   }
 
   return (
@@ -273,9 +288,8 @@ const RecipePage = () => {
 
       {/* Button to delete the recipe */}
       <button onClick={handleDelete}>Delete Recipe</button>
-    </div>
-  );
-};
 
+      
+};
 
 export default RecipePage;
