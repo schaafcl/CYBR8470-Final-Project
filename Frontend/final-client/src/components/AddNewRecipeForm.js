@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 
 const RecipeForm = ({ onSubmit }) => {
   // Define state variables for each input field
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [servings, setServings] = useState('');
-  const [prep_time, setPrepTime] = useState('');
-  const [cook_time, setCookTime] = useState('');
-  const [protein, setProtein] = useState('');
-  const [category, setCategory] = useState('');
-  const [instructions, setInstructions] = useState('');
+  const [name, setRecipeName] = useState('');
+  const [description, setRecipeDescription] = useState('');
+  const [servings, setRecipeServings] = useState('');
+  const [prep_time, setRecipePrepTime] = useState('');
+  const [cook_time, setRecipeCookTime] = useState('');
+  const [protein, setRecipeProtein] = useState('');
+  const [category, setRecipeCategory] = useState('');
+  const [instructions, setRecipeInstructions] = useState('');
   //const [image, setImage] = useState('');
   //const [imageURL, setImageURL] = useState('');
   const [ingredients, setIngredients] = useState('');
@@ -36,18 +36,18 @@ const RecipeForm = ({ onSubmit }) => {
     // Call the onSubmit prop passed to the component (this will handle saving the recipe)
     onSubmit(newRecipe);
 
-    // Reset form fields
-    setName('');
-    setDescription('');
-    setServings('');
-    setPrepTime('');
-    setCookTime('');
-    setProtein('');
-    setCategory('');
-    setInstructions('');
+    // NOTE:  Reset form fields, commented out to leave fields with previous entries for testing
+    //setRecipeName('');
+    //setRecipeDescription('');
+    //setRecipeServings('');
+    //setRecipePrepTime('');
+    //setRecipeCookTime('');
+    //setRecipeProtein('');
+    //setRecipeCategory('');
+    //setRecipeInstructions('');
     //setImage('');
     //setImageURL('');
-    setIngredients('');
+    //setIngredients('');
 
   };
 
@@ -62,7 +62,7 @@ const RecipeForm = ({ onSubmit }) => {
           type="text"
           id="name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setRecipeName(e.target.value)}
           required
         />
       </div>
@@ -74,7 +74,7 @@ const RecipeForm = ({ onSubmit }) => {
           type="text"
           id="description"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => setRecipeDescription(e.target.value)}
           required
         />
       </div>
@@ -86,7 +86,7 @@ const RecipeForm = ({ onSubmit }) => {
           type="text"
           id="servings"
           value={servings}
-          onChange={(e) => setServings(e.target.value)}
+          onChange={(e) => setRecipeServings(e.target.value)}
           required
         />
       </div>
@@ -98,7 +98,7 @@ const RecipeForm = ({ onSubmit }) => {
           type="text"
           id="prep_time"
           value={prep_time}
-          onChange={(e) => setPrepTime(e.target.value)}
+          onChange={(e) => setRecipePrepTime(e.target.value)}
           required
         />
       </div>
@@ -110,7 +110,7 @@ const RecipeForm = ({ onSubmit }) => {
           type="text"
           id="cook_time"
           value={cook_time}
-          onChange={(e) => setCookTime(e.target.value)}
+          onChange={(e) => setRecipeCookTime(e.target.value)}
           required
         />
       </div>
@@ -121,7 +121,7 @@ const RecipeForm = ({ onSubmit }) => {
         <select
           id="protein"
           value={protein}
-          onChange={(e) => setProtein(e.target.value)}
+          onChange={(e) => setRecipeProtein(e.target.value)}
         >
           <option value="">Select Protein Type</option>
           <option value="beef">Beef</option>
@@ -142,7 +142,7 @@ const RecipeForm = ({ onSubmit }) => {
         <select
           id="category"
           value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          onChange={(e) => setRecipeCategory(e.target.value)}
         >
           <option value="">Select Meal Category</option>
           <option value="breakfast">Breakfast</option>
@@ -162,7 +162,7 @@ const RecipeForm = ({ onSubmit }) => {
         <textarea
           id="instructions"
           value={instructions}
-          onChange={(e) => setInstructions(e.target.value)}
+          onChange={(e) => setRecipeInstructions(e.target.value)}
           required
         />
       </div>

@@ -1,23 +1,28 @@
-# Fetching the latest node image on alpine linux
-FROM node:alpine AS development
+# Step 1: Use an official Node.js image as the base image
+FROM node:18 AS build
 
-# Declaring env
-ENV NODE_ENV development
+# Step 2: Set the working directory inside the container
+WORKDIR /app
 
-# Setting up the work directory
-WORKDIR /react-app
-
-# Installing dependencies
-COPY ./package*.json /react-app
-
+# Step 3: Copy package.json and package-lock.json and install dependencies
+COPY package.json package-lock.json ./
 RUN npm install
-
 RUN npm install dompurify
 
-# Copying all the files in our project
+# Step 4: Copy the rest of the app's source code into the container
 COPY . .
 
-EXPOSE 3000
+# Step 5: Build the React app for production
+RUN npm run build
 
-# Starting our application
-CMD ["npm","start"]
+# Step 6: Serve the app using a simple HTTP server (use `serve` or any static file server)
+FROM nginx:alpine
+
+# Copy the build folder from the previous stage to NGINX's default directory
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start NGINX when the container starts
+CMD ["nginx", "-g", "daemon off;"]
