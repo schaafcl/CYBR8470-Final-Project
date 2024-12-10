@@ -19,6 +19,7 @@ const RecipePage = () => {
   // navigate back after deletion
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);  // State to toggle between view and edit modes
+  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -55,7 +56,6 @@ const RecipePage = () => {
         })
       } catch (error) {
         setError(error.message);
-        setLoading(false);
       }
     };
     
@@ -289,7 +289,7 @@ const RecipePage = () => {
       {/* Button to delete the recipe */}
       <button onClick={handleDelete}>Delete Recipe</button>
 
-      
-};
+      </div>
+)};
 
 export default RecipePage;
