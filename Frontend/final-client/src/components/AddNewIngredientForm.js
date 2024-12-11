@@ -85,7 +85,7 @@ const IngredientForm = ({ recipeKey, onSubmit }) => {
 
 
       {/* Submit Button */}
-      <button type="submit">Add Recipe</button>
+      <button type="submit">Add Ingredient</button>
     </form>
   );
 };

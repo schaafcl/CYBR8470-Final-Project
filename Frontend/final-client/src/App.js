@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import RecipePage from './pages/RecipePage';
 import AddRecipePage from './pages/AddRecipePage';
+import AddIngredientPage from './pages/AddIngredientPage';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/recipes/:id" element={<RecipePage />} />
           <Route path="/addRecipe" element={<AddRecipePage />} />
+          <Route path="/addIngredients" element={<AddIngredientPage />} />
            
         </Routes>
       </div>

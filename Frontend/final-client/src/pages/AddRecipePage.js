@@ -20,6 +20,8 @@ const AddNewRecipePage = () => {
   const [error, setError] = useState(null);
   const [responseMessage, setResponseMessage] = useState(null);
 
+  
+
   // Function to handle form submission
   const handleSubmit = async (data) => {
     // logging print

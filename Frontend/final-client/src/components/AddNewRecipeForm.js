@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AddNewIngredientForm from './AddNewIngredientForm'
 
 const RecipeForm = ({ onSubmit }) => {
   // Define state variables for each input field
@@ -13,6 +14,19 @@ const RecipeForm = ({ onSubmit }) => {
   //const [image, setImage] = useState('');
   //const [imageURL, setImageURL] = useState('');
   const [ingredients, setIngredients] = useState('');
+  const [ingredient_name, setIngredientName] = useState('');
+  const [ingredient_description, setIngredientDescription] = useState('');
+  const [ingredient_quantity, setIngredientQuantity] = useState('');
+  const [ingredient_measurement_unit, setIngredientUnits] = useState('');
+
+  const [addingIngredients, setAddingIngredients] = useState(false);
+
+  const handleIngredientSubmit = (e) => {
+    e.preventDefault();
+    console.log("e:  ", e);
+    const { name, value } = e.target;
+    setIngredients({ ...ingredients, [name]: value });
+  };
 
   // Handle form submission
   const handleSubmit = (event) => {
@@ -32,6 +46,8 @@ const RecipeForm = ({ onSubmit }) => {
       //imageURL: imageURL,
       ingredients: ingredients.split(',').map((ingredient) => ingredient.trim()),
     };
+
+    
 
     // Call the onSubmit prop passed to the component (this will handle saving the recipe)
     onSubmit(newRecipe);
@@ -176,6 +192,19 @@ const RecipeForm = ({ onSubmit }) => {
           onChange={(e) => setIngredients(e.target.value)}
           required
         />
+        <button onClick={() => setAddingIngredients(!addingIngredients)}>
+        {addingIngredients ? 'Cancel Adding Ingredients' : 'Add Ingredient'}
+        </button>
+
+        {addingIngredients && (
+            <div className="add-ingredient-page">
+                
+                
+                
+                <h1>Add Ingredient</h1>
+                <AddNewIngredientForm onSubmit={handleIngredientSubmit()} />
+            </div>
+        )}
       </div>
 
       {/* Image URL (optional) 
