@@ -16,13 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
-# imported from previous labs and commented out things not needed, will clean up later
-
-class IngredientViewSet(viewsets.ModelViewSet):
-    queryset = Ingredient.objects.all()
-    serializer_class = IngredientSerializer
-    
-    
+# imported from previous labs and commented out things not needed, will clean up later    
 
 # 12-7 adding search_fields to allow searching by recipe name
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -37,7 +31,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         #handles posts to create a new recipe
-        #individual ingredietns handled in the serializer
         return super().create(request, *args, **kwargs)
     
     # used to search for recipe by its name, case insensitive
