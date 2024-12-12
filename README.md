@@ -37,7 +37,7 @@ To stop the App, enter via terminal on the host machine:
     - docker-compose down   
 
 To add an administrator for the application, from a terminal on hosting machine while the docker container for the app is currently running:    
-    - docker-compose exec web python manage.py createsuperuser
+    - docker-compose run web python manage.py createsuperuser
 
 - when prompted enter username, email address and password for the administrator
     - as a base protection, common or weak passwords will receive a warning when creating this superuser to avoid brute force or common dictionary attacks on the admninistrator dashboard, (you should always try to use best password practices, especially when dealing with administrator accounts).
