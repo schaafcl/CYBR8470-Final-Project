@@ -8,6 +8,7 @@ const SearchBar = ({ onSearch }) => {
   };
 
   const handleSearch = () => {
+    console.log("query=  ", query)
     onSearch(query);
   };
 

@@ -48,10 +48,12 @@ const AddNewRecipePage = () => {
   
         const result = await response.json();
         setResponseMessage("Recipe successfully saved!");
+        console.log(responseMessage);
         setRecipeData(result); // Update state with the saved recipe data
   
       } catch (err) {
         setError(err.message);
+        console.log(error);
       } finally {
         setIsSubmitting(false); // Reset the submitting state
       }
