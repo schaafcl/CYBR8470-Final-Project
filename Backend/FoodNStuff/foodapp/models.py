@@ -7,8 +7,8 @@ class Recipe(models.Model):
     # attributes of the model go here
     # ingredients started as its own model but I ran into forein key issues and due to time was forced to make it a simple text field
     
-    name = models.CharField(max_length=300)
-    description = models.TextField(default="N/A")
+    name = models.CharField(max_length=100)
+    description = models.TextField(max_length=1000, default="N/A")
     servings = models.PositiveIntegerField(default=1)
     # prep time in minutes, allow nulls if you don't want to enter this
     prep_time = models.PositiveIntegerField(default=0)
@@ -18,8 +18,8 @@ class Recipe(models.Model):
     protein = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
     # NOTE:  add html escaping and input sanitization to textfields
-    instructions = models.TextField(default="N/A")
-    ingredients = models.TextField(max_length=5000)
+    instructions = models.TextField(max_length=5000, default="N/A")
+    ingredients = models.TextField(max_length=5000, default="")
 
     def clean(self):
         # Define the allowed tags and attributes, app isn't designed to accept user input that includes html tags but just in case I'm adding it
@@ -30,15 +30,15 @@ class Recipe(models.Model):
         }
         
         # Clean the content by allowing only the safe tags and attributes
-        self.name = bleach.clean(self.description, tags=allowed_tags, attributes=allowed_attributes)
-        self.description = bleach.clean(self.description, tags=allowed_tags, attributes=allowed_attributes)
-        self.ingredients = bleach.clean(self.ingredients, tags=allowed_tags, attributes=allowed_attributes)
-        self.instructions = bleach.clean(self.instructions, tags=allowed_tags, attributes=allowed_attributes)
-        self.protein = bleach.clean(self.instructions, tags=allowed_tags, attributes=allowed_attributes)
-        self.category = bleach.clean(self.instructions, tags=allowed_tags, attributes=allowed_attributes)
+        self.name = bleach.clean(self.description, tags=allowed_tags, attributes=allowed_attributes)[:100]
+        self.description = bleach.clean(self.description, tags=allowed_tags, attributes=allowed_attributes)[:1000]
+        self.ingredients = bleach.clean(self.ingredients, tags=allowed_tags, attributes=allowed_attributes)[:5000]
+        self.instructions = bleach.clean(self.instructions, tags=allowed_tags, attributes=allowed_attributes)[:5000]
+        self.protein = bleach.clean(self.instructions, tags=allowed_tags, attributes=allowed_attributes)[:100]
+        self.category = bleach.clean(self.instructions, tags=allowed_tags, attributes=allowed_attributes)[:100]
     
     def save(self, *args, **kwargs):
-        self.clean()  # Ensure content is sanitized before saving
+        #self.clean()  # Ensure content is sanitized before saving
         super().save(*args, **kwargs)
 
     def __str__(self):

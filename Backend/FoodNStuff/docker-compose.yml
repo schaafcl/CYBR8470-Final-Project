@@ -8,6 +8,11 @@ services:
       - .:/FoodNStuff
     ports:
       - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=FoodNStuff.settings
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_PASSWORD=adminpassword  # Set your desired password here
+      - DJANGO_SUPERUSER_EMAIL=admin@example.com
     depends_on:
       - db
   
