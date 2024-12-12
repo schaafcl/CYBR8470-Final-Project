@@ -173,7 +173,7 @@ const RecipeViewPage = () => {
           <div>
             <label>
               Description:
-              <textarea
+              <textarea rows="10" cols="100"
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
@@ -184,7 +184,7 @@ const RecipeViewPage = () => {
           <div>
             <label>
               Servings:
-              <textarea
+              <textarea rows="2" cols="4"
                 name="servings"
                 value={formData.servings}
                 onChange={handleInputChange}
@@ -194,7 +194,7 @@ const RecipeViewPage = () => {
           <div>
             <label>
               Prep Time:
-              <textarea
+              <textarea rows="2" cols="4"
                 name="prep_time"
                 value={formData.prep_time}
                 onChange={handleInputChange}
@@ -204,7 +204,7 @@ const RecipeViewPage = () => {
           <div>
             <label>
               Cook Time:
-              <textarea
+              <textarea rows="2" cols="4"
                 name="cook_time"
                 value={formData.cook_time}
                 onChange={handleInputChange}
@@ -254,7 +254,7 @@ const RecipeViewPage = () => {
           <div>
             <label>
               Instructions:
-              <textarea
+              <textarea rows="10" cols="100"
                 name="instructions"
                 value={formData.instructions}
                 onChange={handleInputChange}
@@ -263,8 +263,8 @@ const RecipeViewPage = () => {
           </div>
           <div>
             <label>
-              Ingredients:
-              <textarea
+              Ingredients (separate each ingredient with a comma):
+              <textarea rows="10" cols="100"
                 name="ingredients"
                 value={formData.ingredients}
                 onChange={handleInputChange}
@@ -288,7 +288,11 @@ const RecipeViewPage = () => {
           <h3>Category</h3>
           <p>{recipe.category}</p>
           <h3>Ingredients:</h3>
-          <p>{recipe.ingredients}</p>
+          <ul>
+          {formData.ingredients.split(',').map(ingredient => {
+                  return <li>{ingredient}</li>
+                })}
+          </ul>
           <h3>Instructions:</h3>
           <p>{recipe.instructions}</p>
         </div>
