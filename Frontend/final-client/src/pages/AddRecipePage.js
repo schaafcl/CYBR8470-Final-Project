@@ -26,18 +26,19 @@ const AddNewRecipePage = () => {
   const handleSubmit = async (data) => {
     // logging print
     console.log("Recipe submitted:", data);
-    //setRecipeData(data);
+    setRecipeData(data);
     setIsSubmitting(true);
     setError(null);
     setResponseMessage(null);
+    console.log(JSON.stringify(data));
     try {
         // Replace this URL with your actual API endpoint
-        const apiUrl = "https://localhost:8000/api/recipes";
+        //const apiUrl = 'http://localhost:8000/api/recipes/';
   
-        const response = await fetch(apiUrl, {
-          method: "PUT", // Use PUT to update or create the resource
+        const response = await fetch('http://localhost:8000/api/recipes/', {
+          method: 'POST', 
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(data), // Send the recipe data as JSON
         });
@@ -66,8 +67,10 @@ const AddNewRecipePage = () => {
       <div className="recipe-preview">
         <h3>Recipe Preview:</h3>
         <p><strong>Recipe Name:</strong> {recipeData.name}</p>
-        <p><strong>Ingredients:</strong> {recipeData.ingredients}</p>
-        <p><strong>Instructions:</strong> {recipeData.instructions}</p>
+        <p><strong>Ingredients:</strong> {recipeData.ingredients.split(',').map(ingredient => {
+                    return <li>{ingredient}</li>
+                  })}</p>
+        <p><strong>Instructions:</strong> {recipeData.instructions} </p>
       </div>
     </div>
   );

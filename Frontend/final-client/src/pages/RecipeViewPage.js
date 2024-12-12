@@ -289,7 +289,8 @@ const RecipeViewPage = () => {
           <p>{recipe.category}</p>
           <h3>Ingredients:</h3>
           <ul>
-          {formData.ingredients.split(',').map(ingredient => {
+            
+          {recipe.ingredients.split(',').map(ingredient => {
                   return <li>{ingredient}</li>
                 })}
           </ul>

@@ -27,7 +27,7 @@ const RecipeForm = ({ onSubmit }) => {
       protein: protein,
       category: category,
       instructions: instructions,
-      ingredients: ingredients.split(',').map((ingredient) => ingredient.trim()),
+      ingredients: ingredients,
     };
 
     // Call the onSubmit prop passed to the component (this will handle saving the recipe)
