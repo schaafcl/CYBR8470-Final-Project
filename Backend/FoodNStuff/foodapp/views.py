@@ -16,7 +16,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
     serializer_class = RecipeSerializer
     filter_backends = [filters.SearchFilter]
     # enables the attribute recipe name to be searchable via user input
-    search_fields = ['name']
+    search_fields = ['name', 'protein', 'category']
+
 
     def perform_create(self, serializer):
         serializer.save()
