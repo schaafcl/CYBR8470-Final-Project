@@ -1,7 +1,9 @@
 from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Recipe
 from .serializers import RecipeSerializer
 from rest_framework import status, permissions, renderers, viewsets, filters
+
 from rest_framework.response import Response
 from rest_framework.decorators import action
 # from django.views.decorators.csrf import csrf_exempt
@@ -14,9 +16,11 @@ from rest_framework.decorators import action
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
-    filter_backends = [filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     # enables the attribute recipe name to be searchable via user input
-    search_fields = ['name', 'protein', 'category']
+    filterset_fields = ["name", "protein", "category"]
+    search_fields = ["name", "protein", "category"]
+
 
 
     def perform_create(self, serializer):
@@ -26,6 +30,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         #handles posts to create a new recipe
         return super().create(request, *args, **kwargs)
     
+    '''
     # used to search for recipe by its name, case insensitive
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -35,6 +40,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
             # test print
             print(queryset)
         return queryset
+    '''
     
     # used to update recipe values, can change to put if need be
     @action(detail=True, methods=['patch'])
