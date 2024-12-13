@@ -291,7 +291,7 @@ const RecipeViewPage = () => {
           <ul>
             
           {recipe.ingredients.split(',').map(ingredient => {
-                  return <li>{ingredient}</li>
+                  return <li key={ingredient}>{ingredient}</li>
                 })}
           </ul>
           <h3>Instructions:</h3>

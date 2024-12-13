@@ -1,0 +1,13 @@
+/* style.css */
+
+.input-numbers {
+    width: 50px;
+    height: 30px;
+    font-size: 14px;
+}
+
+.input-large {
+    width: 400px;
+    height: 200px;
+    font-size: 14px;
+}

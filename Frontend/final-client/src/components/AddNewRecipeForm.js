@@ -1,53 +1,59 @@
 import React, { useState } from 'react';
+import DOMPurify from 'dompurify';
+import '../styles.css';
 
+// Form used to add new recipes to the database, will be accessed on the AddRecipePage
 const RecipeForm = ({ onSubmit }) => {
-  // Define state variables for each input field
-  const [name, setRecipeName] = useState('');
-  const [description, setRecipeDescription] = useState('');
-  const [servings, setRecipeServings] = useState('');
-  const [prep_time, setRecipePrepTime] = useState('');
-  const [cook_time, setRecipeCookTime] = useState('');
-  const [protein, setRecipeProtein] = useState('');
-  const [category, setRecipeCategory] = useState('');
-  const [instructions, setRecipeInstructions] = useState('');
-  const [ingredients, setIngredients] = useState('');
+  
+  // Setup form attributes and states
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    servings: '',
+    prep_time: '',
+    cook_time: '',
+    protein: '',
+    category: '',
+    instructions: '',
+    ingredients: ''
+  })
 
-
-  // Handle form submission
+  // Handle form submission, when the button is clicked to submit the form
   const handleSubmit = (event) => {
     event.preventDefault();
 
     // Prepare the recipe data
     const newRecipe = {
-      name: name,
-      description: description,
-      servings: servings,
-      prep_time: prep_time,
-      cook_time: cook_time,
-      protein: protein,
-      category: category,
-      instructions: instructions,
-      ingredients: ingredients,
-    };
 
+      name: formData.name,
+      description: formData.description,
+      servings: formData.servings,
+      prep_time: formData.prep_time,
+      cook_time: formData.cook_time,
+      protein: formData.protein,
+      category: formData.category,
+      instructions: formData.instructions,
+      ingredients: formData.ingredients,
+    };
     // Call the onSubmit prop passed to the component (this will handle saving the recipe)
     onSubmit(newRecipe);
-
-    // NOTE:  Reset form fields, commented out to leave fields with previous entries for testing
-    //setRecipeName('');
-    //setRecipeDescription('');
-    //setRecipeServings('');
-    //setRecipePrepTime('');
-    //setRecipeCookTime('');
-    //setRecipeProtein('');
-    //setRecipeCategory('');
-    //setRecipeInstructions('');
-    //setImage('');
-    //setImageURL('');
-    //setIngredients('');
-
   };
 
+  // Handle values in input fields being modified.  Accept raw input, then use DOMPurify library to sanitize and escape the input before updating the state for the formData
+  const handleInputChange = (event) => {
+
+    // retrieve the "name" and "value" fields from the html element, "name" is which variable will be updated in formData, set the value to the value received from the event input
+    const { name, value } = event.target;
+    // sanitize the raw input value before updating the form data
+    const sanitizedValue = DOMPurify.sanitize(value);
+
+    setFormData({
+      ...formData,
+      [name]: sanitizedValue
+    });
+  };
+
+  // each element calls handleInputChange to update values as they are changed
   return (
     <form onSubmit={handleSubmit} className="recipe-form">
       <h2>Add a New Recipe</h2>
@@ -58,8 +64,9 @@ const RecipeForm = ({ onSubmit }) => {
         <input
           type="text"
           id="name"
-          value={name}
-          onChange={(e) => setRecipeName(e.target.value)}
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
           required
         />
       </div>
@@ -70,8 +77,9 @@ const RecipeForm = ({ onSubmit }) => {
         <input
           type="text"
           id="description"
-          value={description}
-          onChange={(e) => setRecipeDescription(e.target.value)}
+          name="description"
+          value={formData.description}
+          onChange={handleInputChange}
           required
         />
       </div>
@@ -82,8 +90,9 @@ const RecipeForm = ({ onSubmit }) => {
         <input
           type="text"
           id="servings"
-          value={servings}
-          onChange={(e) => setRecipeServings(e.target.value)}
+          name="servings"
+          value={formData.servings}
+          onChange={handleInputChange}
           required
         />
       </div>
@@ -94,8 +103,9 @@ const RecipeForm = ({ onSubmit }) => {
         <input
           type="text"
           id="prep_time"
-          value={prep_time}
-          onChange={(e) => setRecipePrepTime(e.target.value)}
+          name="prep_time"
+          value={formData.prep_time}
+          onChange={handleInputChange}
           required
         />
       </div>
@@ -106,8 +116,9 @@ const RecipeForm = ({ onSubmit }) => {
         <input
           type="text"
           id="cook_time"
-          value={cook_time}
-          onChange={(e) => setRecipeCookTime(e.target.value)}
+          name="cook_time"
+          value={formData.cook_time}
+          onChange={handleInputChange}
           required
         />
       </div>
@@ -117,19 +128,20 @@ const RecipeForm = ({ onSubmit }) => {
         <label htmlFor="protein">Type of protein:</label>
         <select
           id="protein"
-          value={protein}
-          onChange={(e) => setRecipeProtein(e.target.value)}
+          name="protein"
+          value={formData.protein}
+          onChange={handleInputChange}
         >
           <option value="">Select Protein Type</option>
-          <option value="beef">Beef</option>
+          <option value="beef">beef</option>
           <option value="pork">Pork</option>
-          <option value="poultry">Poultry</option>
-          <option value="seafood">Seafood</option>
-          <option value="venison">Venison</option>
-          <option value="wild_game">Other Wild Game</option>
-          <option value="vegetable">Vegetable</option>
-          <option value="none">None</option>
-
+          <option value="poultry">poultry</option>
+          <option value="seafood">seafood</option>
+          <option value="venison">venison</option>
+          <option value="wild game">other wild game</option>
+          <option value="vegetable">vegetable</option>
+          <option value="none">none</option>
+          <option value="other">other</option>
         </select>
       </div>
 
@@ -138,18 +150,19 @@ const RecipeForm = ({ onSubmit }) => {
         <label htmlFor="category">Meal Category:</label>
         <select
           id="category"
-          value={category}
-          onChange={(e) => setRecipeCategory(e.target.value)}
+          name="category"
+          value={formData.category}
+          onChange={handleInputChange}
         >
           <option value="">Select Meal Category</option>
-          <option value="breakfast">Breakfast</option>
-          <option value="dinner">Dinner</option>
-          <option value="side_dish">Side Dish</option>
-          <option value="salad">Salad</option>
-          <option value="soup">Soup</option>
-          <option value="dessert">Dessert</option>
-          <option value="condiment">Condiment</option>
-
+          <option value="breakfast">breakfast</option>
+          <option value="dinner">dinner</option>
+          <option value="side dish">side dish</option>
+          <option value="salad">salad</option>
+          <option value="soup">soup</option>
+          <option value="dessert">dessert</option>
+          <option value="condiment">condiment</option>
+          <option value="other">other</option>
         </select>
       </div>  
 
@@ -158,8 +171,9 @@ const RecipeForm = ({ onSubmit }) => {
         <label htmlFor="instructions">Instructions:</label>
         <textarea
           id="instructions"
-          value={instructions}
-          onChange={(e) => setRecipeInstructions(e.target.value)}
+          name="instructions"
+          value={formData.instructions}
+          onChange={handleInputChange}
           required
         />
       </div>
@@ -169,8 +183,9 @@ const RecipeForm = ({ onSubmit }) => {
         <label htmlFor="ingredients">Ingredients:</label>
         <textarea
           id="ingredients"
-          value={ingredients}
-          onChange={(e) => setIngredients(e.target.value)}
+          name="ingredients"
+          value={formData.ingredients}
+          onChange={handleInputChange}
           required
         />
       </div>

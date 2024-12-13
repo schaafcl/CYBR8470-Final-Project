@@ -3,33 +3,29 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import Recipe
 from .serializers import RecipeSerializer
 from rest_framework import status, permissions, renderers, viewsets, filters
-
 from rest_framework.response import Response
 from rest_framework.decorators import action
 # from django.views.decorators.csrf import csrf_exempt
 
-# Create your views here.
 
-# imported from previous labs and commented out things not needed, will clean up later    
-
-# 12-7 adding search_fields to allow searching by recipe name
+# Viewset for recipes
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+    # enable filtering and searching on the home page based on querying 'name' 'protein' and 'category' fields
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    # enables the attribute recipe name to be searchable via user input
     filterset_fields = ["name", "protein", "category"]
     search_fields = ["name", "protein", "category"]
 
 
-
+    '''
     def perform_create(self, serializer):
         serializer.save()
 
     def create(self, request, *args, **kwargs):
         #handles posts to create a new recipe
         return super().create(request, *args, **kwargs)
-    
+    '''
     '''
     # used to search for recipe by its name, case insensitive
     def get_queryset(self):
@@ -41,7 +37,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
             print(queryset)
         return queryset
     '''
-    
+    '''
     # used to update recipe values, can change to put if need be
     @action(detail=True, methods=['patch'])
     def update_recipe(self, request, pk=None):
@@ -51,3 +47,4 @@ class RecipeViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    '''

@@ -2,11 +2,13 @@ FROM node:16 AS build
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package.json ./
+
 RUN npm install
-RUN npm install dompurify
 
 COPY . .
+
+RUN npm install dompurify
 
 RUN npm run build
 

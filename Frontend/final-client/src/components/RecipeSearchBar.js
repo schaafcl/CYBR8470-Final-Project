@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import DOMPurify from 'dompurify'
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState('');
 
   const handleChange = (e) => {
-    setQuery(e.target.value);
+    const raw_input = e.target.value;
+    const sanitized_input = DOMPurify.sanitize(raw_input);
+    setQuery(sanitized_input);
   };
 
   const handleSearch = () => {

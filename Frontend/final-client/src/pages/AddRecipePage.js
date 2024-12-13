@@ -67,9 +67,13 @@ const AddNewRecipePage = () => {
       <div className="recipe-preview">
         <h3>Recipe Preview:</h3>
         <p><strong>Recipe Name:</strong> {recipeData.name}</p>
-        <p><strong>Ingredients:</strong> {recipeData.ingredients.split(',').map(ingredient => {
-                    return <li>{ingredient}</li>
-                  })}</p>
+        <p><strong>Ingredients:</strong> </p>
+        <ul>
+          {
+          recipeData.ingredients.split(',').map((ingredient, index) => {
+                  return <li key={index}>{ingredient}</li>
+                })}
+          </ul>
         <p><strong>Instructions:</strong> {recipeData.instructions} </p>
       </div>
     </div>
