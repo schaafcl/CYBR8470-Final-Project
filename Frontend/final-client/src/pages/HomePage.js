@@ -10,7 +10,7 @@ const HomePage = () => {
   const handleSearch = async (searchTerm) => {
     try {
       const response = await fetch(`http://localhost:8000/api/recipes/?search=${searchTerm}`);
-      console.log(searchTerm)
+      console.log(searchTerm);
       //testing response for errors
       const raw_response = await response.text();
       console.log(raw_response)
@@ -21,8 +21,8 @@ const HomePage = () => {
         console.error('Response was not "ok"', raw_response)
       }
 
-      // const data = await response.json();
-      // setRecipes(data); // Store recipes in the state
+       const data = await response.json();
+       setRecipes(data); // Store recipes in the state
     } catch (error) {
       console.error('Error fetching recipes:', error);
     }

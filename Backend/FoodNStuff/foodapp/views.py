@@ -24,8 +24,8 @@ class RecipeFilter(django_filters.FilterSet):
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend, OrderingFilter)
-    filterset_class = RecipeFilter
+    #filter_backends = (django_filters.rest_framework.DjangoFilterBackend, OrderingFilter)
+    #filterset_class = RecipeFilter
     # enables the attribute recipe name to be searchable via user input
     search_fields = ['name', 'protein', 'category']
 
