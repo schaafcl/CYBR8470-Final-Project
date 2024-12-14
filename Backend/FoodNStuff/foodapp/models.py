@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 # Recipe Model
 class Recipe(models.Model):
     
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=1000, default="N/A")
     servings = models.PositiveIntegerField(default=1)
