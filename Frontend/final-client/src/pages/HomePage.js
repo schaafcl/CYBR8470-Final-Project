@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SearchBar from '../components/RecipeSearchBar';
 import { Link } from 'react-router-dom'
 import DOMPurify from 'dompurify'
+import '../styles.css';
 
 
 // Main homepage.  Holds navigation links for the other pages, the search bar component for searching/filtering results, and the search results after searching
@@ -12,10 +13,22 @@ const HomePage = () => {
 
   // handles the search event, when the search button is clicked
   const handleSearch = async (searchTerm) => {
+    
+
+    //const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+
     try {
       // sanitize the search bar input before attepting to search for it
       const sanitizedSearchTerm = DOMPurify.sanitize(searchTerm)
-      const response = await fetch(`http://localhost:8000/api/recipes/?search=${sanitizedSearchTerm}`);
+      const response = await fetch(`http://localhost:8000/api/recipes/?search=${sanitizedSearchTerm}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          //'X-CSRFToken': csrfToken,
+        },
+        //credentials: 'include',
+    });
       //testing response for errors
       const raw_response = await response.text();
       if(response.ok) {

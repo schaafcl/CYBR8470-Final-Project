@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
+import '../styles.css';
 
 // page for viewing a specific recipe.  Clicking on a recipe on the homepage after searching brings you here
 const RecipeViewPage = () => {
@@ -83,6 +84,7 @@ const RecipeViewPage = () => {
       try {
         const response = await fetch(`http://localhost:8000/api/recipes/${id}/`, {
           method: 'DELETE',
+          credentials: 'same-origin',
         });
 
         if (response.ok) {

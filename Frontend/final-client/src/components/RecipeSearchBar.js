@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DOMPurify from 'dompurify'
+import '../styles.css';
 
 // search bar component, appears on the home page, used to search/filter recipes
 const SearchBar = ({ onSearch }) => {

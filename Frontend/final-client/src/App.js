@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import RecipeViewPage from './pages/RecipeViewPage';
 import AddRecipePage from './pages/AddRecipePage';
+import LoginPage from './pages/LoginPage';
 
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
         <h1>My Recipe App</h1>
         <nav>
           <ul>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/logout">Logout</a></li>
             <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/addRecipe">Add a new recipe</a></li>
@@ -25,6 +28,7 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/recipes/:id" element={<RecipeViewPage />} />
           <Route path="/addRecipe" element={<AddRecipePage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </div>
     </Router>
