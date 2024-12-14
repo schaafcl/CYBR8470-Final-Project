@@ -6,7 +6,6 @@ import RecipeViewPage from './pages/RecipeViewPage';
 import AddRecipePage from './pages/AddRecipePage';
 
 
-
 function App() {
   return (
     <Router>
@@ -20,14 +19,12 @@ function App() {
           </ul>
         </nav>
 
-        {/* Define your routes here */}
+        {/* page routes */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/recipes/:id" element={<RecipeViewPage />} />
           <Route path="/addRecipe" element={<AddRecipePage />} />
-          
-           
         </Routes>
       </div>
     </Router>

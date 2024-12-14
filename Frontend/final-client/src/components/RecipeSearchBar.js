@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import DOMPurify from 'dompurify'
 
+// search bar component, appears on the home page, used to search/filter recipes
 const SearchBar = ({ onSearch }) => {
+  // query variable, the search criteria
   const [query, setQuery] = useState('');
 
+  // called when values inside the search bar are chaged by users.  Takes the raw input value, uses dompurify to sanitize/escape it, then set the state of the query variable
   const handleChange = (e) => {
     const raw_input = e.target.value;
     const sanitized_input = DOMPurify.sanitize(raw_input);
     setQuery(sanitized_input);
   };
 
+  // handles the search event
   const handleSearch = () => {
-    console.log("query=  ", query)
     onSearch(query);
   };
 
