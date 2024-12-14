@@ -59,7 +59,7 @@ const RecipeForm = ({ onSubmit }) => {
       <h2>Add a New Recipe</h2>
 
       {/* Recipe name */}
-      <div>
+      <div className="form-group">
         <label htmlFor="name">Recipe Name:</label>
         <input
           type="text"
@@ -68,69 +68,75 @@ const RecipeForm = ({ onSubmit }) => {
           value={formData.name}
           onChange={handleInputChange}
           required
+          placeholder="Enter recipe name"
         />
       </div>
 
       {/* Recipe descriptions */}
-      <div>
+      <div className="form-group">
         <label htmlFor="description">Description:</label>
-        <input
-          type="text"
+        <textarea
           id="description"
           name="description"
           value={formData.description}
           onChange={handleInputChange}
           required
+          rows="6"
+          placeholder="Enter recipe description"
         />
       </div>
 
       {/* Number of servings */}
-      <div>
+      <div className="form-group">
         <label htmlFor="servings">Number of servings:</label>
         <input
-          type="text"
+          type="number"
           id="servings"
           name="servings"
           value={formData.servings}
           onChange={handleInputChange}
           required
+          placeholder="Enter number of servings"
         />
       </div>
 
       {/* Preptime */}
-      <div>
+      <div className="form-group">
         <label htmlFor="prep_time">Prep Time (in minutes):</label>
         <input
-          type="text"
+          type="number"
           id="prep_time"
           name="prep_time"
           value={formData.prep_time}
           onChange={handleInputChange}
           required
+          placeholder="Enter recipe prep time in minutes"
         />
       </div>
 
       {/* Cooktime */}
-      <div>
+      <div className="form-group">
         <label htmlFor="cook_time">Cook Time (in minutes):</label>
         <input
-          type="text"
+          type="number"
           id="cook_time"
           name="cook_time"
           value={formData.cook_time}
           onChange={handleInputChange}
           required
+          placeholder="Enter cook time in minutes"
         />
       </div>
 
       {/* Protein type */}
-      <div>
+      <div className="form-group">
         <label htmlFor="protein">Type of protein:</label>
         <select
           id="protein"
           name="protein"
           value={formData.protein}
           onChange={handleInputChange}
+          required
         >
           <option value="">Select Protein Type</option>
           <option value="beef">beef</option>
@@ -146,13 +152,14 @@ const RecipeForm = ({ onSubmit }) => {
       </div>
 
       {/* Meal category */}
-      <div>
+      <div className="form-group">
         <label htmlFor="category">Meal Category:</label>
         <select
           id="category"
           name="category"
           value={formData.category}
           onChange={handleInputChange}
+          required
         >
           <option value="">Select Meal Category</option>
           <option value="breakfast">breakfast</option>
@@ -167,7 +174,7 @@ const RecipeForm = ({ onSubmit }) => {
       </div>  
 
       {/* Instructions */}
-      <div>
+      <div className="form-group">
         <label htmlFor="instructions">Instructions:</label>
         <textarea
           id="instructions"
@@ -175,11 +182,13 @@ const RecipeForm = ({ onSubmit }) => {
           value={formData.instructions}
           onChange={handleInputChange}
           required
+          rows="6"
+          placeholder="Enter step by step instructions"
         />
       </div>
 
       {/* Ingredients */}
-      <div>
+      <div className="form-group">
         <label htmlFor="ingredients">Ingredients:</label>
         <textarea
           id="ingredients"
@@ -187,11 +196,14 @@ const RecipeForm = ({ onSubmit }) => {
           value={formData.ingredients}
           onChange={handleInputChange}
           required
+          rows="6"
+          placeholder="List ingredients, separating each by a comma"
         />
       </div>
-
+      <div className="form-group">
       {/* Submit Button */}
-      <button type="submit">Add Recipe</button>
+      <button type="submit" className="btn-submit">Add Recipe</button>
+      </div>
     </form>
   );
 };

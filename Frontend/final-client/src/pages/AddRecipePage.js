@@ -60,18 +60,18 @@ const AddNewRecipePage = () => {
 
   return (
     <div className="add-recipe-page">
-      <h1>Add a New Recipe</h1>
+      <h1 className="page-title">Add a New Recipe</h1>
       {/* Pass handleSubmit to form */}
       <AddNewRecipeForm onSubmit={handleSubmit} /> 
       <div className="recipe-preview">
-        <h3>Recipe Preview:</h3>
+        <h3 className="preview-title">Recipe Preview:</h3>
         <p><strong>Recipe Name:</strong> {recipeData.name}</p>
         <p><strong>Ingredients:</strong> </p>
-        <ul>{
+        <ul className="ingredients-list">{
           recipeData.ingredients.split(',').map((ingredient, index) => {return <li key={index}>{ingredient}</li>})
         }
         </ul>
-        <p><strong>Instructions:</strong> {recipeData.instructions} </p>
+        <p className="instructions"><strong>Instructions:</strong> {recipeData.instructions} </p>
       </div>
     </div>
   );
