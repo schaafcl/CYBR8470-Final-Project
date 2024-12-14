@@ -163,85 +163,88 @@ const RecipeViewPage = () => {
   }
 
   return (
-    <div>
+    <div className="recipe-page">
       {/* Display recipe in edit mode or view mode */}
-      <h2>{isEditing ? 'Edit Recipe' : recipe.name}</h2>
+      <div className="header">
+        <h2>{isEditing ? 'Edit Recipe' : 'View Recipe'}</h2>
+        <button className="edit-button" onClick={() => setIsEditing(!isEditing)}>
+          {isEditing ? 'Cancel Edit' : 'Edit Recipe'}
+        </button>
+      </div>
       
-      <button onClick={() => setIsEditing(!isEditing)}>
-        {isEditing ? 'Cancel Edit' : 'Edit Recipe'}
-      </button>
       {/* editing mode */}
       {isEditing ? (
-        <form onSubmit={handleUpdate}>
+        <form onSubmit={handleUpdate} className="recipe-form">
 
           {/* recipe name */}
-          <div>
-            <label>
-              Name:
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-              />
-            </label>
+          <div className="form-group">
+            <label>Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              className="input-field"
+            />
           </div>
 
           {/* description */}
-          <div>
-            <label>
-              Description:
-              <textarea rows="10" cols="100"
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-              />
-            </label>
+          <div className="form-group">
+            <label>Description:</label>
+            <textarea
+              rows="4"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              className="textarea-field"
+            />
+            
           </div>
 
           {/* servings */}
-          <div>
-            <label>
-              Servings:
-              <textarea rows="2" cols="4"
-                name="servings"
-                value={formData.servings}
-                onChange={handleInputChange}
-              />
-            </label>
+          <div className="form-group">
+            <label>Servings:</label>
+            <input
+              type="number"
+              name="servings"
+              value={formData.servings}
+              onChange={handleInputChange}
+              className="input-field"
+            />
           </div>
 
           {/* recipe prep time */}
-          <div>
-            <label>
-              Prep Time:
-              <textarea rows="2" cols="4"
-                name="prep_time"
-                value={formData.prep_time}
-                onChange={handleInputChange}
-              />
-            </label>
+          <div className="form-group">
+            <label>Prep Time:</label>
+            <input
+              type="number"
+              name="prep_time"
+              value={formData.prep_time}
+              onChange={handleInputChange}
+              className="input-field"
+            />
           </div>
 
           {/* recipe cook time */}
-          <div>
-            <label>
-              Cook Time:
-              <textarea rows="2" cols="4"
-                name="cook_time"
-                value={formData.cook_time}
-                onChange={handleInputChange}
-              />
-            </label>
+          <div className="form-group">
+            <label>Cook Time:</label>
+            <input
+              type="number"
+              name="cook_time"
+              value={formData.cook_time}
+              onChange={handleInputChange}
+              className="input-field"
+            />
           </div>
 
           {/* Protein type */}
-          <div>
-            <label htmlFor="protein">Type of protein:</label>
+          <div className="form-group">
+            <label>Type of protein:</label>
             <select
               name="selectedProtein"
               value={selectedProtein}
               onChange={handleProteinChange}
+              className="select-field"
             >
             <option value="">{formData.protein}</option>
             <option value="beef">beef</option>
@@ -252,16 +255,18 @@ const RecipeViewPage = () => {
             <option value="wild game">other wild game</option>
             <option value="vegetable">vegetable</option>
             <option value="none">none</option>
+            <option value="other">other</option>
             </select>
           </div>
 
           {/* Meal category */}
-          <div>
-            <label htmlFor="category">Meal Category:</label>
+          <div className="form-group">
+            <label>Meal Category:</label>
             <select
-            id="category"
-            value={selectedCategory}
-            onChange={handleCategoryChange}
+              name="selectedCategory"
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+              className="select-field"
             >
             <option value="">{formData.category}</option>
             <option value="breakfast">breakfast</option>
@@ -271,39 +276,44 @@ const RecipeViewPage = () => {
             <option value="soup">soup</option>
             <option value="dessert">dessert</option>
             <option value="condiment">condiment</option>
+            <option value="other">other</option>
             </select>
           </div>  
 
           {/* recipe instructions */}
-          <div>
-            <label>
-              Instructions:
-              <textarea rows="10" cols="100"
-                name="instructions"
-                value={formData.instructions}
-                onChange={handleInputChange}
-              />
-            </label>
+          <div className="form-group">
+            <label>Instructions:</label>
+            <textarea 
+              rows="6"
+              name="instructions"
+              value={formData.instructions}
+              onChange={handleInputChange}
+              className="textarea-field"
+            />
           </div>
 
           {/* ingredients */}
-          <div>
-            <label>
-              Ingredients (separate each ingredient with a comma):
-              <textarea rows="10" cols="100"
-                name="ingredients"
-                value={formData.ingredients}
-                onChange={handleInputChange}
-              />
-            </label>
+          <div className="form-group">
+            <label>Ingredients (separate each ingredient with a comma):</label>
+            <textarea 
+              rows="6"
+              name="ingredients"
+              value={formData.ingredients}
+              onChange={handleInputChange}
+              className="textarea-field"
+            />
           </div> 
 
           {/* button submits the form finishing the recipe updates */}
-          <button type="submit">Save Changes</button>
+          <div className="form-group">
+            <button type="submit" className="submit-button">Save Changes</button>
+          </div>
         </form>
       ) : (
-        <div>
+        <div className="recipe-details">
           {/* Display whe not in edit mode */}
+          <h3>Name:</h3>
+          <p>{recipe.name}</p>
           <h3>Description:</h3>
           <p>{recipe.description}</p>
           <h3>Servings:</h3>
@@ -328,8 +338,10 @@ const RecipeViewPage = () => {
       )}
 
       {/* Button to delete the recipe */}
-      <button onClick={handleDelete}>Delete Recipe</button>
+      <div className="form-group">
+        <button onClick={handleDelete} className="delete-button">Delete Recipe</button>
       </div>
+    </div>
 )};
 
 export default RecipeViewPage;

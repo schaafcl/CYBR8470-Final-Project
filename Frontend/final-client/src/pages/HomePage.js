@@ -38,18 +38,19 @@ const HomePage = () => {
 
   // display recipe items after searching
   return (
-    <div>
-      <h1>Recipe Search</h1>
+    <div className="recipe-search-page">
+      <h1 className="search-title">Recipe Search</h1>
       <SearchBar onSearch={handleSearch} />
-      <div>
-        <h2>Results:</h2>
-        <ul>
+      <div className="results-section">
+        <h2 className="results-title">Results:</h2>
+        
+        <ul className="recipe-list">
           {recipes.map((recipe) => (
             <li key={recipe.id}>
               <Link to={`/recipes/${recipe.id}`}>
-                <h3>{recipe.name}</h3>
+                <h3 className="recipe-name">{recipe.name}</h3>
               </Link>
-              <p>{recipe.description}</p>
+              <p className="recipe-description">{recipe.description}</p>
             </li>
           ))}
         </ul>
