@@ -5,8 +5,7 @@ from .serializers import RecipeSerializer
 from rest_framework import status, permissions, renderers, viewsets, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from .permissions import IsOwner
-# from django.views.decorators.csrf import csrf_exempt
+from .permissions import IsOwnerOrStaff
 
 
 # Viewset for recipes
@@ -17,17 +16,23 @@ class RecipeViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["name", "protein", "category"]
     search_fields = ["name", "protein", "category"]
-    permission_classes = [permissions.IsAuthenticated, IsOwner]
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrStaff]
 
 
     def retrieve(self, request, *args, **kwargs):
 
         recipe = self.get_object()
-        if recipe.recipe_owner != request.user:
-            return Response({'error': 'You do not have permission to view this dog.'}, status=403)
-
         serializer = self.get_serializer(recipe)
         return Response(serializer.data)
+        '''
+        if request.user.is_staff:
+            serializer = self.get_serializer(recipe)
+            return Response(serializer.data)
+        if recipe.recipe_owner != request.user:
+            return Response({'error': 'You do not have permission to view this dog.'}, status=403)
+        serializer = self.get_serializer(recipe)
+        return Response(serializer.data)
+        '''
     
 
     def perform_create(self, serializer):
@@ -35,5 +40,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return Recipe.objects.filter(recipe_owner = user)
+        if user.is_staff:
+            return Recipe.objects
+        else:
+            return Recipe.objects.filter(recipe_owner = user)
     
