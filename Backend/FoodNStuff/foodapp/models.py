@@ -17,6 +17,7 @@ class Recipe(models.Model):
     instructions = models.TextField(max_length=5000, default="N/A")
     ingredients = models.TextField(max_length=5000, default="")
     
+    
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
