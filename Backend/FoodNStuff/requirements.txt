@@ -1,6 +1,7 @@
 Django
 psycopg2
 djangorestframework
+djangorestframework-simplejwt
 psycopg2-binary
 Pillow
 django-cors-headers
