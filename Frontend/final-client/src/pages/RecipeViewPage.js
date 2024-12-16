@@ -47,7 +47,14 @@ const RecipeViewPage = () => {
     // retrieve the recipe from the database, log any errors if fetch fails
     const fetchRecipe = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/recipes/${id}/`);
+        const token = localStorage.getItem('access_token')
+        const response = await fetch(`http://localhost:8000/api/recipes/${id}/`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
         if(!response.ok) {
           console.log("recipe view page failed to fetch recipe, response:  ", response);
           throw new Error('Recipe was not found!');

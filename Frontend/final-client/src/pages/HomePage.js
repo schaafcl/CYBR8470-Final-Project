@@ -21,14 +21,14 @@ const HomePage = () => {
     try {
       // sanitize the search bar input before attepting to search for it
       const sanitizedSearchTerm = DOMPurify.sanitize(searchTerm)
+      const token = localStorage.getItem('access_token')
       const response = await fetch(`http://localhost:8000/api/recipes/?search=${sanitizedSearchTerm}`, {
         method: 'GET',
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
-          //'X-CSRFToken': csrfToken,
         },
-        //credentials: 'include',
-    });
+      });
       //testing response for errors
       const raw_response = await response.text();
       if(response.ok) {

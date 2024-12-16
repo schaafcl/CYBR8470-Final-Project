@@ -32,9 +32,11 @@ const AddNewRecipePage = () => {
 
     try {
         // attempt sending the POST request to the api, body is JSON version of the data argument
+        const token = localStorage.getItem('access_token')
         const response = await fetch('http://localhost:8000/api/recipes/', {
           method: 'POST', 
           headers: {
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
           credentials: 'same-origin',

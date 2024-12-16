@@ -4,13 +4,10 @@ from .serializers import RecipeSerializer, UserRegistrationSerializer, LoginSeri
 from rest_framework import status, viewsets, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework.authentication import SessionAuthentication
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.viewsets import GenericViewSet
-from django.contrib.auth import authenticate, login, logout
+from .permissions import IsOwnerOrStaff
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
-from django.middleware.csrf import get_token
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 # Viewset for recipes
@@ -21,63 +18,35 @@ class RecipeViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["name", "protein", "category"]
     search_fields = ["name", "protein", "category"]
-    authentication_classes = [SessionAuthentication]
-    permission_classes = [IsAuthenticated]
-
-
-# viewset for registering users
-class RegisterViewSet(viewsets.GenericViewSet):
-    permission_classes = [AllowAny]  # Anyone can access the registration endpoint
-    serializer_class = UserRegistrationSerializer
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            return Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrStaff]
     
 
-# viewset for logins
-class LoginViewSet(GenericViewSet):
-    permission_classes = [AllowAny]  # Anyone can access the login endpoint
 
-    
-    
-    def create(self, request, *args, **kwargs):
-        serializer = LoginSerializer(data=request.data)
-        if serializer.is_valid():
-            user = authenticate(
-                username=serializer.validated_data['username'],
-                password=serializer.validated_data['password']
-            )
-            if user is not None:
-                login(request, user)
-                return Response({"message": "Login successful"})
-            else:
-                return Response({"message": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    '''
-    @action(detail=False, methods=['post'])
-    def login(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
+    def retrieve(self, request, *args, **kwargs):
 
-        user = authenticate(request, username=username, password=password)
+        recipe = self.get_object()
+        serializer = self.get_serializer(recipe)
+        return Response(serializer.data)
 
-        if user is not None:
-            login(request, user)
-            return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
+    def perform_create(self, serializer):
+        serializer.save(recipe_owner=self.request.user)
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_staff:
+            return Recipe.objects
         else:
-            return Response({"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
-    '''
-
-# logouts
-class LogoutViewSet(GenericViewSet):
-    def create(self, request, *args, **kwargs):
-        logout(request)
-        return Response({"message": "Logout successful"})
+            return Recipe.objects.filter(recipe_owner = user)
     
-def csrf_token_view(request):
-    return JsonResponse({'csrfToken': get_token(request)})
+@csrf_exempt  # Disable CSRF for this view
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def logout_view(request):
+    try:
+        refresh_token = request.data['refresh']
+        # Invalidate the refresh token (blacklist)
+        token = RefreshToken(refresh_token)
+        token.blacklist()
+        return Response({"detail": "Successfully logged out."}, status=status.HTTP_205_RESET_CONTENT)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
