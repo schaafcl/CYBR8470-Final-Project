@@ -15,14 +15,26 @@ This app additionally uses a popular food/ingredient nutrition and information a
 
 # **INSTALLATION**
 
-- Install Docker on the machine you want to host the application
-- Clone the project from github to the local machine and open the application directory
+- Install Docker on the machine you want to host the application and start the docker or docker desktop application.
+- Clone the project from github to the local machine
     - git clone https://github.com/schaafcl/CYBR8470-Final-Project
-    - cd FoodNStuff
-- The project contains a dockerfile, so build the docker image for the application
+- For the backend API:
+        - cd Backend/FoodNStuff
+    - The project contains a dockerfile, so build the docker image for the application
+    - docker-compose build
     - docker-compose up --build
-- This will build the docker image, initialize the database, and run the server.  You can leave it running if you wish or bring it down as needed with:
+- This will build the docker image, initialize the database, and run the api server.  You can leave it running if you wish or bring it down as needed with:
     - docker-compose down
+- For the frontend react javascript application:
+    - in a terminal at the base project directory, navigate to the frontend react project
+        - cd Frontend/final-client
+    - the frontend is dockerized as well, and can be stared from the container
+        - docker-compose build
+        - docker-compose up
+- The application can be accessed on the local machine running it at:
+    - http://localhost:3000
+
+- This will have you at the home page where you can start using the app.
 
 
 
@@ -46,33 +58,26 @@ To add an administrator for the application, from a terminal on hosting machine 
     - You will be pompted to enter the credentials you used to create the admin user
     - This will bring you to the administrator dashboard for the django application
 
+- From the dashboard while logged in as an administrator, you can add more users, or add recipes and assign them to the various users.
 
+- Navigate to the application's hosted location:
+    - http://localhost:3000
 
-This section is currently a bit barren as the project (as of milestone 1) doesn't have a determined front end framework decided or in place.
+- This is the home page, from here you must login to gain the ability to view, change, or add recipes
+- This means that to create users you must do so from the Django admin dashboard after creating a superuser
+    -http://localhost:8000/admin
 
+- The homepage is where users can search for recipes via the search bar, this will filter recipes by title, what type of primary protein (beef, pork, poultry, vegetable) or what type of meal it is (soup, salad, side dish).
+Any of these queries can be put in the search bar, click search, and will display results.  Note that only recipes that the currently logged in user has permission to view/edit will be displayed in search results.  Admin users
+or staff members can view/edit all stored recipes.
 
-General Application function will be easy to understand, and will vary depending on what task you wish to complete.
+- Clicking on any of the results after searching will navigate to a view page to view the details of that recipe, where authorized users can view, edit or delete that recipe.
 
-**To enter new content (a new or existing recipe)**
-- Navigate to the appropriate page and enter the recipe details in the appropriate entry boxes and menus
-- Some selections will be text entry, others will have dropdown boxes for curated selections
+- Authorization is done via jwt tokens so users will be automatically "logged out" when the token expires, however if you wish to ensure that the token is dropped from the app, you can click the logout link to do so immediately.
 
-**To search for a recipe by some specific criteria**
-- Navigate to the search or browse page
-- Choose what criteria you wish to filter recipes by, click "search"
-- View the results and decide if you wish to further filter the results
+- Authorized users can also add new recipes via the link at the top.  Enter the required fields and submit the recipe, doing so will also register that recipe to whatever user is currently logged in and therefore only they and admins will have access to it
 
-**To remove or edit existing recipes**
-- Locate the recipe you wish to modify or remove using the above process for searching
-- Click the appropriate button on that recipe for what you wish to do, either "Modify Recipe" or "Remove Recipe"
-- Clicking modify, will take you to a page similar to entering a new recipe with fields populated with the existing recipe details
-    - from there you can modify the fields and save the changes
-- Clicking remove will completely remove that recipe from your recipe list
-
-
-Front end display and presentation is still under works, but viewing a recipe will roughly look like the following:
-
-![Recipe View Mockup](https://github.com/schaafcl/CYBR8470-Final-Project/blob/dc2c60fce0af084826e1307dca0df8e8765e538b/Documentation/mockup.png)
+- non authorized users will only have full access to the "About" page to see basic details about the app and the creator.
 
 
 # **LICENSE**

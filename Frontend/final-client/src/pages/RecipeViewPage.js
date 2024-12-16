@@ -130,7 +130,6 @@ const RecipeViewPage = () => {
 
   // handle the dropdown toggle for protein, options are curated so input sanitization and escaping isn't required
   const handleProteinChange = (event) => {
-    //console.log(event);
     setSelectedProtein(event.target.value);
     formData.protein = event.target.value;
   }
@@ -145,16 +144,15 @@ const RecipeViewPage = () => {
     event.preventDefault();
     try {
       // retrieve jwt for fetch requests from api, here is for editing recipes
-      const token = localStorage.getItem('access_token')
+      const token = localStorage.getItem('access_token');
       const response = await fetch(`http://localhost:8000/api/recipes/${id}/`, {
         method: 'PUT',
         headers: {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+        
       });
 
       if (response.ok) {
