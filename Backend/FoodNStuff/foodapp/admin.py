@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Recipe
 
-# administrator model
+# administrator model allows creation and manipulation of recipes and users from the django admin dashboard
 class Admin(admin.ModelAdmin):
     list_display = ('name', 'recipe_owner')
     search_fields = ('name', 'protein', 'category')

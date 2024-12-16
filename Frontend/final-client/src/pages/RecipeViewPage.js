@@ -47,6 +47,7 @@ const RecipeViewPage = () => {
     // retrieve the recipe from the database, log any errors if fetch fails.  jwt token authentication for each fetch request
     const fetchRecipe = async () => {
       try {
+        // retrive token and use to fetch a recipe object from api
         const token = localStorage.getItem('access_token')
         const response = await fetch(`http://localhost:8000/api/recipes/${id}/`, {
           method: 'GET',
@@ -89,6 +90,7 @@ const RecipeViewPage = () => {
     const confirmed = window.confirm("Are you sure you want to delete this recipe?");
     if (confirmed) {
       try {
+        // retrieve jwt for fetch requests from api, here for deleting a recipe
         const token = localStorage.getItem('access_token')
         const response = await fetch(`http://localhost:8000/api/recipes/${id}/`, {
           method: 'DELETE',
@@ -142,6 +144,7 @@ const RecipeViewPage = () => {
   const handleUpdate = async (event) => {
     event.preventDefault();
     try {
+      // retrieve jwt for fetch requests from api, here is for editing recipes
       const token = localStorage.getItem('access_token')
       const response = await fetch(`http://localhost:8000/api/recipes/${id}/`, {
         method: 'PUT',
