@@ -1,8 +1,7 @@
-from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Recipe
-from .serializers import RecipeSerializer
-from rest_framework import status, permissions, renderers, viewsets, filters
+from .serializers import RecipeSerializer, UserRegistrationSerializer, LoginSerializer
+from rest_framework import status, viewsets, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from .permissions import IsOwnerOrStaff

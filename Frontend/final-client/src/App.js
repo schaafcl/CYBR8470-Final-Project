@@ -15,6 +15,8 @@ function App() {
         <h1>My Recipe App</h1>
         <nav>
           <ul>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/logout">Logout</a></li>
             <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/addRecipe">Add a new recipe</a></li>

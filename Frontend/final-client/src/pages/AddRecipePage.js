@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import AddNewRecipeForm from "../components/AddNewRecipeForm"; // Import your form component
+import AddNewRecipeForm from "../components/AddNewRecipeForm";
+import '../styles.css'; // Import your form component
 
 // Page for adding new recipes not already in the database
 const AddNewRecipePage = () => {
@@ -38,6 +39,7 @@ const AddNewRecipePage = () => {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
+          credentials: 'same-origin',
           body: JSON.stringify(data),
         });
         // send an error if the request receives an error response

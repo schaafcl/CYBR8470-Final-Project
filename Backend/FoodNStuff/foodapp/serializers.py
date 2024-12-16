@@ -1,5 +1,8 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 from .models import Recipe
+from rest_framework import serializers
+
 
 # serializer to use with the viewsets and automatic routing
 class RecipeSerializer(serializers.ModelSerializer):
