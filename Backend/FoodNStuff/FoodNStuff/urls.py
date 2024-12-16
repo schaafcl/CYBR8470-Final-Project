@@ -8,9 +8,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = DefaultRouter()
 router.register(r'recipes', RecipeViewSet)
-#router.register(r'register', RegisterViewSet, basename='register')
-#router.register(r'login', LoginViewSet, basename='login')
-#router.register(r'logout', LogoutViewSet, basename='logout')
 
 
 urlpatterns = [

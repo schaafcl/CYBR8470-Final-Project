@@ -9,13 +9,12 @@ const LoginPage = () => {
 
     // Handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent default form submission
-
+        e.preventDefault();
         // Reset previous error
         setError('');
 
         try {
-            // Sending POST request to the login API (adjust the URL to your actual login endpoint)
+            // get a jwt token for authentication permissions
             const response = await fetch('http://localhost:8000/api/token/', {
                 method: 'POST',
                 headers: {
@@ -23,13 +22,13 @@ const LoginPage = () => {
                 },
                 body: JSON.stringify({ username, password }),
             });
-
+            // store the jwt token if login is successful
             if (response.ok) {
                 const data = await response.json();
                 const token = data.access;
                 localStorage.setItem('access_token', token);
-                // If successful, you can redirect the user or handle login success
-                window.location.href = '/';  // Redirect to dashboard or home page
+                // redirect to home page after successful login
+                window.location.href = '/';
             } else {
                 const errorData = await response.json();
                 setError(errorData.error || 'Your username and password didn\'t match. Please try again.');

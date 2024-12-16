@@ -1,26 +1,21 @@
 import React, { useEffect } from 'react';
 
+// logs currently logged user in by dropping jwt token from storage
 const LogoutPage = () => {
     
   useEffect(() => {
 
-    
     const logout = async () => {
-      
+
       try {
-        const token = localStorage.getItem('access_token');
-        console.log("token:  ", token);
+        // drop the token, currently its only stored in localstorage rather than in a cookie or in session storage
         localStorage.removeItem('access_token');
-        localStorage.removeItem('refreshToken')
-        sessionStorage.removeItem('access_token');
-        console.log("Token after dropping:  ", localStorage.getItem('access_token'));
+        //sessionStorage.removeItem('access_token');
         
       } catch (error) {
         console.error('Error:', error);
       }
-        
     };
-
     logout();
   }, []);
 

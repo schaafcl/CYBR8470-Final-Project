@@ -10,6 +10,7 @@ const AboutPage = () => {
         refer to that cabinet that holds stacked cookbooks, overstuffed manilla folders, and piles of loose pages stuffed in a cabinet holding your own as well as your extended family's extensive culinary history.  A user can
         consolidate their many recipes in a locally hosted database, add to them over time, and browse through them based on what's on sale for a given week or what "just sounds good right now".
       </p>
+
       <p><b>Chris Schaaf<br></br>M.S. Cyber Security Operations <br></br>University of Nebraska at Omaha <br></br>cschaaf@unomaha.edu</b></p>
     </div>
   );
