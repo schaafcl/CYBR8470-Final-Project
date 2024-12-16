@@ -6,6 +6,9 @@ from rest_framework import status, permissions, renderers, viewsets, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from .permissions import IsOwnerOrStaff
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 # Viewset for recipes
@@ -17,6 +20,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     filterset_fields = ["name", "protein", "category"]
     search_fields = ["name", "protein", "category"]
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrStaff]
+    
 
 
     def retrieve(self, request, *args, **kwargs):
@@ -24,16 +28,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
         recipe = self.get_object()
         serializer = self.get_serializer(recipe)
         return Response(serializer.data)
-        '''
-        if request.user.is_staff:
-            serializer = self.get_serializer(recipe)
-            return Response(serializer.data)
-        if recipe.recipe_owner != request.user:
-            return Response({'error': 'You do not have permission to view this dog.'}, status=403)
-        serializer = self.get_serializer(recipe)
-        return Response(serializer.data)
-        '''
-    
 
     def perform_create(self, serializer):
         serializer.save(recipe_owner=self.request.user)
@@ -45,3 +39,15 @@ class RecipeViewSet(viewsets.ModelViewSet):
         else:
             return Recipe.objects.filter(recipe_owner = user)
     
+@csrf_exempt  # Disable CSRF for this view
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def logout_view(request):
+    try:
+        refresh_token = request.data['refresh']
+        # Invalidate the refresh token (blacklist)
+        token = RefreshToken(refresh_token)
+        token.blacklist()
+        return Response({"detail": "Successfully logged out."}, status=status.HTTP_205_RESET_CONTENT)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

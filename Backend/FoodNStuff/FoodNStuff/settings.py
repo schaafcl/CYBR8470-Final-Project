@@ -36,6 +36,9 @@ CORS_ALLOWED_ORIGINS= [
     "http://localhost:3000",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+]
 
 # Application definition
 
@@ -51,8 +54,11 @@ INSTALLED_APPS = [
     'foodapp',
     'corsheaders',
     'django_filters',
-
 ]
+
+SIMPLE_JWT =  {
+    'BLACKLIST_AFTER_ROTATION': True,
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
