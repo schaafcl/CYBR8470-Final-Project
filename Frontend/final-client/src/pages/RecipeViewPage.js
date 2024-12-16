@@ -145,16 +145,17 @@ const RecipeViewPage = () => {
     event.preventDefault();
     try {
       // retrieve jwt for fetch requests from api, here is for editing recipes
-      const token = localStorage.getItem('access_token')
+      const token = localStorage.getItem('access_token');
+      //console.log("token at recipeview PUT:  ", token);
+      //console.log("form data while updating:  ", JSON.stringify(formData));
       const response = await fetch(`http://localhost:8000/api/recipes/${id}/`, {
         method: 'PUT',
         headers: {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+        
       });
 
       if (response.ok) {

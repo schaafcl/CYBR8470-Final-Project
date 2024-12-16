@@ -49,7 +49,6 @@ const AddNewRecipePage = () => {
         // get json formatted info from the http response, set the response message to successful and log it, update the recipe data fields
         const result = await response.json();
         setResponseMessage("Recipe successfully saved!");
-        console.log(responseMessage);
         setRecipeData(result); 
   
         // catch any errors and log them

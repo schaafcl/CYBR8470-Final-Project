@@ -38,6 +38,26 @@ class RecipeViewSet(viewsets.ModelViewSet):
         else:
             return Recipe.objects.filter(recipe_owner = user)
         
+    def update(self, request, *args, **kwargs):
+        
+        recipe = self.get_object()  # Get the recipe object to be updated
+        user = request.user
+
+        # Check if the user is the owner or staff
+        if not user.is_staff and recipe.recipe_owner != user:
+            raise PermissionDenied("You do not have permission to update this recipe.")
+
+        # You can perform additional logic here if needed before updating
+
+        # Proceed with updating the recipe
+        serializer = self.get_serializer(recipe, data=request.data, partial=True)  # partial=True for PATCH
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        # Return the updated data as the response
+        return Response(serializer.data)
+
+        
 '''
 @csrf_exempt  # Disable CSRF for this view
 @api_view(['POST'])

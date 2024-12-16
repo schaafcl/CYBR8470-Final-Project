@@ -23,7 +23,6 @@ const HomePage = () => {
       const sanitizedSearchTerm = DOMPurify.sanitize(searchTerm)
       // jwt authentication for search results
       const token = localStorage.getItem('access_token')
-      console.log("token at homepage:  ", token);
       const response = await fetch(`http://localhost:8000/api/recipes/?search=${sanitizedSearchTerm}`, {
         method: 'GET',
         headers: {
