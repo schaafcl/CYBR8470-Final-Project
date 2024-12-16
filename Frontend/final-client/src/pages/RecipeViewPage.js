@@ -44,7 +44,7 @@ const RecipeViewPage = () => {
 
   // triggers when navigating to this page
   useEffect(() => {
-    // retrieve the recipe from the database, log any errors if fetch fails
+    // retrieve the recipe from the database, log any errors if fetch fails.  jwt token authentication for each fetch request
     const fetchRecipe = async () => {
       try {
         const token = localStorage.getItem('access_token')
