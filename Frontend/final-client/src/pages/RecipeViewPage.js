@@ -44,7 +44,7 @@ const RecipeViewPage = () => {
 
   // triggers when navigating to this page
   useEffect(() => {
-    // retrieve the recipe from the database, log any errors if fetch fails
+    // retrieve the recipe from the database, log any errors if fetch fails.  jwt token authentication for each fetch request
     const fetchRecipe = async () => {
       try {
         const token = localStorage.getItem('access_token')
@@ -89,9 +89,13 @@ const RecipeViewPage = () => {
     const confirmed = window.confirm("Are you sure you want to delete this recipe?");
     if (confirmed) {
       try {
+        const token = localStorage.getItem('access_token')
         const response = await fetch(`http://localhost:8000/api/recipes/${id}/`, {
           method: 'DELETE',
-          credentials: 'same-origin',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         });
 
         if (response.ok) {
@@ -138,10 +142,14 @@ const RecipeViewPage = () => {
   const handleUpdate = async (event) => {
     event.preventDefault();
     try {
+      const token = localStorage.getItem('access_token')
       const response = await fetch(`http://localhost:8000/api/recipes/${id}/`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         },
         body: JSON.stringify(formData),
       });
